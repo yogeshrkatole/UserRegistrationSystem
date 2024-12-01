@@ -6,33 +6,41 @@ public class UserRegistrationClass {
 		 System.out.println("Welcome to User Registration System");
 		 
 		 Scanner scanner = new Scanner(System.in);
-         System.out.print("Enter first name: "); 
+         System.out.print("Enter first name like contains at least 3 char and starts with capital :"); 
          String firstName = scanner.nextLine();
 
          if (checkFirstName(firstName)) { 
              System.out.println("First Name is Correct"); 
          } else {
-             System.out.println("Incorrect\nFirst Name contains at least 3 char and starts with capital"); 
+             System.out.println("Incorrect First Name "); 
          }
          
-         System.out.print("Enter last name: "); 
+         System.out.print("Enter last name like contains at least 3 char and starts with capital :"); 
          String lastName = scanner.nextLine();
 
          if (checkFirstName(lastName)) { 
              System.out.println("Last Name is Correct"); 
          } else {
-             System.out.println("Incorrect\nLastirst Name contains at least 3 char and starts with capital"); 
+             System.out.println("Incorrect Lastirst Name"); 
          }
          
-         System.out.print("Enter email: "); 
+         System.out.print("Enter email like this format abc.xyz@bl.co.in :"); 
          String email = scanner.nextLine();
 
          if (checkEmail(email)) { 
              System.out.println("Email is Correct"); 
          } else {
-             System.out.println("Incorrect\n Enter like this format abc.xyz@bl.co.in"); 
+             System.out.println("Incorrect email"); 
          }
          
+         System.out.print("Enter 10 digit mobile No with country code like 91 9234567890 :"); 
+         String mobileNo = scanner.nextLine();
+
+         if (checkMobileNo(mobileNo)) { 
+             System.out.println("MobileNo is Correct"); 
+         } else {
+             System.out.println("Incorrect MobileNo"); 
+         }
          scanner.close();
 	 }
 	 public static boolean checkFirstName(String firstOrLastName) { 
@@ -42,5 +50,9 @@ public class UserRegistrationClass {
 	 public static boolean checkEmail(String email) { 
 	        String regex = "^[a-zA-Z0-9]+([._][a-zA-Z0-9]+)*@[a-zA-Z0-9]+\\.[a-zA-Z]{2,}(\\.[a-zA-Z]{2,})?$";
 	        return Pattern.matches(regex, email);
+	    }
+	 public static boolean checkMobileNo(String mobileNo) { 
+	        String regex = "^[0-9]{1,3} [0-9]{10}$";
+	        return Pattern.matches(regex, mobileNo); 
 	    }
 }
