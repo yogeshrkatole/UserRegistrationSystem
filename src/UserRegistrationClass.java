@@ -41,6 +41,15 @@ public class UserRegistrationClass {
          } else {
              System.out.println("Incorrect MobileNo"); 
          }
+         
+         System.out.print("Enter password like minimum 8 chars :"); 
+         String password = scanner.nextLine();
+
+         if (checkPassword(password)) { 
+             System.out.println("Password is Correct"); 
+         } else {
+             System.out.println("Incorrect Password"); 
+         }
          scanner.close();
 	 }
 	 public static boolean checkFirstName(String firstOrLastName) { 
@@ -52,7 +61,11 @@ public class UserRegistrationClass {
 	        return Pattern.matches(regex, email);
 	    }
 	 public static boolean checkMobileNo(String mobileNo) { 
-	        String regex = "^[0-9]{1,3} [0-9]{10}$";
+	        String regex = "^[0-9]{1,3} [0-9]{10}$"; 
 	        return Pattern.matches(regex, mobileNo); 
+	    }
+	 public static boolean checkPassword(String password) { 
+	        String regex = "^.{8}$";
+	        return Pattern.matches(regex, password);
 	    }
 }
