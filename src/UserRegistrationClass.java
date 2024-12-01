@@ -23,10 +23,24 @@ public class UserRegistrationClass {
          } else {
              System.out.println("Incorrect\nLastirst Name contains at least 3 char and starts with capital"); 
          }
+         
+         System.out.print("Enter email: "); 
+         String email = scanner.nextLine();
+
+         if (checkEmail(email)) { 
+             System.out.println("Email is Correct"); 
+         } else {
+             System.out.println("Incorrect\n Enter like this format abc.xyz@bl.co.in"); 
+         }
+         
          scanner.close();
 	 }
 	 public static boolean checkFirstName(String firstOrLastName) { 
 	     String regex = "^[A-Z][a-z]{2,}$";
 	     return Pattern.matches(regex, firstOrLastName);
 	 }
+	 public static boolean checkEmail(String email) { 
+	        String regex = "^[a-zA-Z0-9]+([._][a-zA-Z0-9]+)*@[a-zA-Z0-9]+\\.[a-zA-Z]{2,}(\\.[a-zA-Z]{2,})?$";
+	        return Pattern.matches(regex, email);
+	    }
 }
