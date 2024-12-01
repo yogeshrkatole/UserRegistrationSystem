@@ -14,11 +14,19 @@ public class UserRegistrationClass {
          } else {
              System.out.println("Incorrect\nFirst Name contains at least 3 char and starts with capital"); 
          }
+         
+         System.out.print("Enter last name: "); 
+         String lastName = scanner.nextLine();
 
+         if (checkFirstName(lastName)) { 
+             System.out.println("Last Name is Correct"); 
+         } else {
+             System.out.println("Incorrect\nLastirst Name contains at least 3 char and starts with capital"); 
+         }
          scanner.close();
 	 }
-	 public static boolean checkFirstName(String firstName) { 
+	 public static boolean checkFirstName(String firstOrLastName) { 
 	     String regex = "^[A-Z][a-z]{2,}$";
-	     return Pattern.matches(regex, firstName);
+	     return Pattern.matches(regex, firstOrLastName);
 	 }
 }
