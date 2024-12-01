@@ -42,7 +42,7 @@ public class UserRegistrationClass {
              System.out.println("Incorrect MobileNo"); 
          }
          
-         System.out.print("Enter password like minimum 8 chars :"); 
+         System.out.print("Enter password like minimum 8 chars and at least 1 uppercase :"); 
          String password = scanner.nextLine();
 
          if (checkPassword(password)) { 
@@ -65,7 +65,8 @@ public class UserRegistrationClass {
 	        return Pattern.matches(regex, mobileNo); 
 	    }
 	 public static boolean checkPassword(String password) { 
-	        String regex = "^.{8}$";
-	        return Pattern.matches(regex, password);
+		 String charLength = "^.{8,}$";
+	     String uppercaseChar= ".*[A-Z].*";
+	        return Pattern.matches(charLength, password) && Pattern.matches(uppercaseChar, password);
 	    }
 }
