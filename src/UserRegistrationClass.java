@@ -42,7 +42,8 @@ public class UserRegistrationClass {
 			System.out.println("Incorrect MobileNo");
 		}
 
-		System.out.print("Enter password like minimum 8 chars and at least 1 uppercase char and at least 1 digit and exact 1 special char :");
+		System.out.print(
+				"Enter password like minimum 8 chars and at least 1 uppercase char and at least 1 digit and exact 1 special char :");
 		String password = scanner.nextLine();
 
 		if (checkPassword(password)) {
@@ -51,6 +52,19 @@ public class UserRegistrationClass {
 			System.out.println("Incorrect Password");
 		}
 		scanner.close();
+
+		String[] validEmails = { "abc@yahoo.com", "abc-100@yahoo.com", "abc.100@yahoo.com", "abc111@abc.com",
+				"abc-100@abc.net", "abc.100@abc.com.au", "abc@1.com", "abc@gmail.com.com", "abc+100@gmail.com" };
+		for (String e : validEmails) {
+			System.out.println(e + " is " + (checkSampleEmail(e) ? "Correct Format" : "Incorrect format"));
+		}
+
+		String[] invalidEmails = { "abc", "abc@.com.my", "abc123@gmail.a", "abc123@.com", "abc123@.com.com",
+				".abc@abc.com", "abc()*@gmail.com", "abc@%*.com", "abc..2002@gmail.com", "abc.@gmail.com",
+				"abc@abc@gmail.com", "abc@gmail.com.1a", "abc@gmail.com.aa.au" };
+		for (String e : invalidEmails) {
+			System.out.println(e + " is " + (checkSampleEmail(e) ? "Correct Format" : "Incorrect format"));
+		}
 	}
 
 	public static boolean checkFirstName(String firstOrLastName) {
@@ -74,6 +88,12 @@ public class UserRegistrationClass {
 		String numericChar = ".*[0-9].*";
 		String specialChar = "^[a-zA-Z0-9]*[!@#$%^&*()_+\\-={}\\[\\]:;\"'<>,.?/\\|\\`~][a-zA-Z0-9]*$";
 		return Pattern.matches(charLength, password) && Pattern.matches(uppercaseChar, password)
-				&& Pattern.matches(numericChar, password)&& Pattern.matches(specialChar, password);
+				&& Pattern.matches(numericChar, password) && Pattern.matches(specialChar, password);
+	}
+
+	public static boolean checkSampleEmail(String email) {
+		String emailPattern = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z]{2,}){1,2}$";
+
+		return Pattern.matches(emailPattern, email);
 	}
 }
