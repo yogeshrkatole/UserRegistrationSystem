@@ -6,55 +6,35 @@ public class UserRegistrationClass {
 	public static void main(String args[]) {
 		System.out.println("Welcome to User Registration System");
 
-		Scanner scanner = new Scanner(System.in);
-		try {
+		try(Scanner scanner = new Scanner(System.in)) {
 			System.out.print("Enter first name like contains at least 3 char and starts with capital :");
 			String firstName = scanner.nextLine();
 
-			if (checkFirstOrLastName(firstName)) {
-				System.out.println("First Name is Correct");
-			} else {
-				System.out.println("Incorrect First Name ");
-			}
+			 check(firstName, checkFirstOrLastName, "FirstName");
+
 
 			System.out.print("Enter last name like contains at least 3 char and starts with capital :");
 			String lastName = scanner.nextLine();
 
-			if (checkFirstOrLastName(lastName)) {
-				System.out.println("Last Name is Correct");
-			} else {
-				System.out.println("Incorrect Lastirst Name");
-			}
+			 check(lastName, checkFirstOrLastName, "LastName");
+
 
 			System.out.print("Enter email like this format abc.xyz@bl.co.in :");
 			String email = scanner.nextLine();
 
-			if (checkEmail(email)) {
-				System.out.println("Email is Correct");
-			} else {
-				System.out.println("Incorrect email");
-			}
+			 check(email, checkEmail, "Email");
 
 			System.out.print("Enter 10 digit mobile No with country code like 91 9234567890 :");
 			String mobileNo = scanner.nextLine();
 
-			if (checkMobileNo(mobileNo)) {
-				System.out.println("MobileNo is Correct");
-			} else {
-				System.out.println("Incorrect MobileNo");
-			}
+			check(mobileNo, checkMobileNo, "MobileNo");
 
 			System.out.print(
 					"Enter password like minimum 8 chars and at least 1 uppercase char and at least 1 digit and exact 1 special char :");
 			String password = scanner.nextLine();
 
-			if (checkPassword(password)) {
-				System.out.println("Password is Correct");
-			} else {
-				System.out.println("Incorrect Password");
-			}
-		
-		scanner.close();
+			check(password, checkPassword, "Password");
+
 
 		String[] validEmails = { "abc@yahoo.com", "abc-100@yahoo.com", "abc.100@yahoo.com", "abc111@abc.com",
 				"abc-100@abc.net", "abc.100@abc.com.au", "abc@1.com", "abc@gmail.com.com", "abc+100@gmail.com" };
@@ -73,50 +53,62 @@ public class UserRegistrationClass {
 		}
 	}
 
-	public static boolean checkFirstOrLastName(String firstOrLastName) throws UserRegistrationException {
+	public static final UserValidation checkFirstOrLastName = input -> {
         String regex = "^[A-Z][a-z]{2,}$";
-        if (!Pattern.matches(regex, firstOrLastName)) {
+        if (!Pattern.matches(regex, input)) {
         	throw new UserRegistrationException("Invalid Name: Start with a capital letter and contains at least 3 characters.");
         }
         return true;
-    }
+    };
 
-	public static boolean checkEmail(String email) throws UserRegistrationException {
+	public static final UserValidation checkEmail= input -> {
 		String regex = "^[a-zA-Z0-9]+([._][a-zA-Z0-9]+)*@[a-zA-Z0-9]+\\.[a-zA-Z]{2,}(\\.[a-zA-Z]{2,})?$";
-	     if(!Pattern.matches(regex, email)) {
+	     if(!Pattern.matches(regex, input)) {
 	    	 throw new UserRegistrationException("Invalid Email:Enter email like this format abc.xyz@bl.co.in");
 		}
 	     return true;
-	}
+	};
 
-	public static boolean checkMobileNo(String mobileNo) throws UserRegistrationException {
+	public static final UserValidation checkMobileNo= input -> {
 		String regex = "^[0-9]{1,3} [0-9]{10}$";
-		if(!Pattern.matches(regex, mobileNo)) {
+		if(!Pattern.matches(regex, input)) {
 			throw new UserRegistrationException("Invalid Mobile No:Enter 10 digit mobile No with country code like 91 9234567890");
 		}
 		return true;
-	}
+	};
 
-	public static boolean checkPassword(String password) throws UserRegistrationException {
+	public static final UserValidation checkPassword= input -> {
 		String charLength = "^.{8,}$";
 		String uppercaseChar = ".*[A-Z].*";
 		String numericChar = ".*[0-9].*";
 		String specialChar = "^[a-zA-Z0-9]*[!@#$%^&*()_+\\-={}\\[\\]:;\"'<>,.?/\\|\\`~][a-zA-Z0-9]*$";
-		if (!Pattern.matches(charLength, password) || 
-		        !Pattern.matches(uppercaseChar, password) || 
-		        !Pattern.matches(numericChar, password) || 
-		        !Pattern.matches(specialChar, password)) {
+		if (!Pattern.matches(charLength, input) || 
+		        !Pattern.matches(uppercaseChar, input) || 
+		        !Pattern.matches(numericChar, input) || 
+		        !Pattern.matches(specialChar, input)) {
 		        throw new UserRegistrationException("Invalid Password:Enter password like minimum 8 chars and at least 1 uppercase char and at least 1 digit and exact 1 special char.");
 		    }
 		return true;
-	}
+	};
 
-	public static boolean checkSampleEmail(String email) throws UserRegistrationException {
+	public static final UserValidation checkSampleEmail= input -> {
 		String emailPattern = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z]{2,}){1,2}$";
 
-		if(!Pattern.matches(emailPattern, email)) {
+		if(!Pattern.matches(emailPattern, input)) {
 			throw new UserRegistrationException("Invalid Email:follow standard email format.");
 		}
 		return true;
-	}
+	};
+	private static void check(String input, UserValidation checker, String fieldName) { 
+        try {
+            if (checker.validate(input)) { 
+                System.out.println(fieldName + " is Correct");
+            }
+        } catch (UserRegistrationException e) {
+            System.out.println("Incorrect " + fieldName + ": " + e.getMessage());
+        }
+    }
+	private static boolean checkSampleEmail(String email) throws UserRegistrationException { 
+        return checkSampleEmail.validate(email);
+    }
 }

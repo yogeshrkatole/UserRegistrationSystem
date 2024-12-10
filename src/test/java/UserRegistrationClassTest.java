@@ -16,7 +16,7 @@ public class UserRegistrationClassTest {
     @Test
     public void testFirstName_valid_returnHappy() {
         try {
-            assertTrue(UserRegistrationClass.checkFirstOrLastName("Yogesh"));
+            assertTrue(UserRegistrationClass.checkFirstOrLastName.validate("Yogesh"));
         } catch (UserRegistrationException e) {
             fail("Unexpected exception: " + e.getMessage());
         }
@@ -25,7 +25,7 @@ public class UserRegistrationClassTest {
     @Test
     public void testFirstName_invalid_throwsException() {
         try {
-            UserRegistrationClass.checkFirstOrLastName("yogesh");
+            UserRegistrationClass.checkFirstOrLastName.validate("yogesh");
             fail("Expected UserRegistrationException was not thrown");
         } catch (UserRegistrationException e) {
         	assertEquals("Invalid Name: Start with a capital letter and contains at least 3 characters.", e.getMessage());
@@ -36,7 +36,7 @@ public class UserRegistrationClassTest {
     @Test
     public void testLastName_valid_returnHappy() {
         try {
-            assertTrue(UserRegistrationClass.checkFirstOrLastName("Katole"));
+            assertTrue(UserRegistrationClass.checkFirstOrLastName.validate("Katole"));
         } catch (UserRegistrationException e) {
             fail("Unexpected exception: " + e.getMessage());
         }
@@ -45,7 +45,7 @@ public class UserRegistrationClassTest {
     @Test
     public void testLastName_invalid_throwsException() {
         try {
-            UserRegistrationClass.checkFirstOrLastName("katole");
+            UserRegistrationClass.checkFirstOrLastName.validate("katole");
             fail("Expected UserRegistrationException was not thrown");
         } catch (UserRegistrationException e) {
         	assertEquals("Invalid Name: Start with a capital letter and contains at least 3 characters.", e.getMessage());
@@ -55,7 +55,7 @@ public class UserRegistrationClassTest {
     @Test
     public void testEmail_valid_returnHappy() {
         try {
-            assertTrue(UserRegistrationClass.checkEmail("yogesh.100@gmail.com.au"));
+            assertTrue(UserRegistrationClass.checkEmail.validate("yogesh.100@gmail.com.au"));
         } catch (UserRegistrationException e) {
             fail("Unexpected exception: " + e.getMessage());
         }
@@ -64,7 +64,7 @@ public class UserRegistrationClassTest {
     @Test
     public void testEmail_invalid_throwsException() {
         try {
-            UserRegistrationClass.checkEmail("yog@com");
+            UserRegistrationClass.checkEmail.validate("yog@com");
             fail("Expected UserRegistrationException was not thrown");
         } catch (UserRegistrationException e) {
             assertEquals("Invalid Email:Enter email like this format abc.xyz@bl.co.in", e.getMessage());
@@ -74,7 +74,7 @@ public class UserRegistrationClassTest {
     @Test
     public void testMobileNo_valid_returnHappy() {
         try {
-            assertTrue(UserRegistrationClass.checkMobileNo("91 9576543210"));
+            assertTrue(UserRegistrationClass.checkMobileNo.validate("91 9576543210"));
         } catch (UserRegistrationException e) {
             fail("Unexpected exception: " + e.getMessage());
         }
@@ -83,7 +83,7 @@ public class UserRegistrationClassTest {
     @Test
     public void testMobileNo_invalid_throwsException() {
         try {
-            UserRegistrationClass.checkMobileNo("9576543210");
+            UserRegistrationClass.checkMobileNo.validate("9576543210");
             fail("Expected UserRegistrationException was not thrown");
         } catch (UserRegistrationException e) {
             assertEquals("Invalid Mobile No:Enter 10 digit mobile No with country code like 91 9234567890", e.getMessage());
@@ -93,7 +93,7 @@ public class UserRegistrationClassTest {
     @Test
     public void testPassword_valid_returnHappy() {
         try {
-            assertTrue(UserRegistrationClass.checkPassword("Katole@123"));
+            assertTrue(UserRegistrationClass.checkPassword.validate("Katole@123"));
         } catch (UserRegistrationException e) {
             fail("Unexpected exception: " + e.getMessage());
         }
@@ -102,7 +102,7 @@ public class UserRegistrationClassTest {
     @Test
     public void testPassword_invalid_throwsException() {
         try {
-            UserRegistrationClass.checkPassword("Katole");
+            UserRegistrationClass.checkPassword.validate("Katole");
             fail("Expected UserRegistrationException was not thrown");
         } catch (UserRegistrationException e) {
             assertEquals("Invalid Password:Enter password like minimum 8 chars and at least 1 uppercase char and at least 1 digit and exact 1 special char.", e.getMessage());
@@ -114,7 +114,7 @@ public class UserRegistrationClassTest {
             "abc-100@abc.net", "abc.100@abc.com.au", "abc@1.com", "abc@gmail.com.com", "abc+100@gmail.com" })
     public void testSampleEmail_valid_returnHappy(String email) {
         try {
-            assertTrue(UserRegistrationClass.checkSampleEmail(email));
+            assertTrue(UserRegistrationClass.checkSampleEmail.validate(email));
         } catch (UserRegistrationException e) {
             fail("Unexpected exception for email: " + email + " - " + e.getMessage());
         }
@@ -126,7 +126,7 @@ public class UserRegistrationClassTest {
             "abc@gmail.com.1a", "abc@gmail.com.aa.au" })
     public void testSampleEmail_invalid_throwsException(String email) {
         try {
-            UserRegistrationClass.checkSampleEmail(email);
+            UserRegistrationClass.checkSampleEmail.validate(email);
             fail("Expected UserRegistrationException was not thrown for email: " + email);
         } catch (UserRegistrationException e) {
             assertEquals("Invalid Email:follow standard email format.", e.getMessage());
